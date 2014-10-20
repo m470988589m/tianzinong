@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="Todo" type="com.todoList.web.vo.Todo" />
+
+	<insert id="todo.add" parameterClass="Todo">
+    <![CDATA[
+    	insert into todo(content,done,orderNum) values(#content#,#done#,#order#)
+    ]]>
+		<selectKey resultClass="Integer" keyProperty="id">
+			CALL IDENTITY() <!-- only work for hsqldb -->
+		</selectKey>
+	</insert>
+
+	<resultMap class="Todo" id="TodoEntity">
+		<result property="id" column="id" javaType="java.lang.Integer" jdbcType="Integer" />
+		<result property="content" column="content" javaType="java.lang.String" jdbcType="varchar" />
+		<result property="done" column="done" javaType="java.lang.Boolean" jdbcType="varchar" />
+		<result property="order" column="orderNum" javaType="java.lang.Integer" jdbcType="Integer" />
+	</resultMap>
+
+	<select id="todo.query" resultMap="TodoEntity">
+	<![CDATA[
+		select id, content, done, orderNum from todo order by orderNum
+	]]>
+	</select>
+
+	<update id="todo.update" parameterClass="Todo">
+    <![CDATA[
+    	update todo set content = #content#, done= #done#, orderNum=#order# where id = #id#
+    ]]>
+	</update>
+
+	<delete id="todo.delete" parameterClass="java.lang.Integer">
+    <![CDATA[
+    	delete from todo where id = #id#
+    ]]>
+	</delete>
+</sqlMap>
