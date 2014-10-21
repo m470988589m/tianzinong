@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>MyHtml.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/underscore.js"></script>
+	<script type="text/javascript" src="js/backbone.js"></script>
+  </head>
+  
+  <body>
+   		<button id="check">报到</button>
+	   		<ul id="world-list">
+	   		
+	   		</ul>
+  </body>
+  <script type="text/javascript">
+  	(function($)
+  		{
+  			World = Backbone.Model.extend(
+	 			{
+	  				//创建一个World的对象，拥有name 属性
+	  				name:null
+	  			}
+  			);
+  			
+  			Worlds = Backbone.Collection.extend(
+  				{
+  					//World对象的集合
+  					initialize:function (models,options)
+  					{
+  						this.bind("add",options.view.addOneWorld);
+  					}
+  				}
+  			
+  			);
+  			
+  			AppView  = Backbone.View.extend(
+  			{
+  				el:$("body"),
+  				initialize:function()
+  				{
+  					//构造函数，实例化一个world集合类，并且以字典方式传入AppView 的对象
+  					this.worlds = new Worlds(null,{view:this})
+  				},
+  			
+  			
+  			
+  			//事件绑定，绑定Dom中id 为check 的元素
+	  			events:{
+	  				"click #check":"checkln",
+	  			},
+  			
+	  			checkln:function()
+	  			{
+	  				var world_name=prompt("请问，您是哪星人?");
+	  				if(world_name=="")
+	  				world_name='未知';
+	  				var world = new World({name:world_name});
+	  				this.worlds.add(world);
+	  			},
+  			
+	  			addOneWorld:function(model)
+	  			{
+	  				$("#world-list").append("<li>这里是来自<b>"+model.get('name')+"</b>星球的问候：hello world!</li>");
+	  			}
+  			});
+  			//实例化AppView
+  			var appview = new AppView;
+  		})(jQuery);
+  </script>
+  
+  
+</html>

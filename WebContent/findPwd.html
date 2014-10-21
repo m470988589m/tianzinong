@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Find PassWord</title>
+	<script type="text/javascript">
+  		var flag = "false";
+		/*
+		$(document).ready(
+			function ()
+  			{
+  				$("#loginName").blur(
+  					function()
+  					{
+  						var name = $(this).val();
+  						//将登录名发送到服务器  使用ajax
+  						$.ajax({
+  							type:"post",
+  							url:"checkname",
+  							data:"name="+name,
+  							dateType:"json",
+							//回调函数   参数用于接收返回值
+  							success: function(data)
+  									{
+  										flag = data.success;
+  										var div = $("#showPwd");
+  										div.html("你的密码是:"+text);
+  									}
+  						});
+  					}
+  				);
+  			}
+		);*/
+		(function($)
+			{
+				Pwd = Backbone.extend(
+					{
+						password:null
+					}
+				);
+								
+				AppView  = Backbone.View.extend(
+  				{
+	  				el:$("body"),
+	  				initialize:function()
+	  				{
+	  					//构造函数，实例化一个world集合类，并且以字典方式传入AppView 的对象
+	  					this.worlds = new Worlds(null,{view:this})
+	  				},
+  			
+  			
+  			
+  			//事件绑定，绑定Dom中id 为check 的元素
+		  			events:{
+		  				"click #sure":"checkln",
+		  			},
+  			
+		  			checkln:function()
+		  			{
+		  				var answer = $.("#answer").val();
+		  				if(answer=="" || !answer=="田吴小学")
+		  				$.("#showPwd").html("回答错误");
+		  				else	
+		  				$.("#showPwd").html("123456");
+		  				
+		  			},
+  			
+		  			addOneWorld:function(model)
+		  			{
+		  				$("#world-list").append("<li>这里是来自<b>"+model.get('name')+"</b>星球的问候：hello world!</li>");
+		  			}
+  				});
+  			//实例化AppView
+  			var appview = new AppView;
+			}
+		);
+		
+	</script>
+</head>
+<body>
+		<div id="todoapp" align="center">
+		<header>
+			<h1>Find PassWord</h1>
+			登录名:<input id="loginName" placeholder="" type="text"/>
+				<div style="display: inline;background-color: purple;width: 150px;height: 20px;position: absolute;" id="checkLoginName"></div>
+			<h2>请回答问题</h2>
+				问题:<input type="text" id="questions" value="您小学的校名是？"/><br/><br/>
+				答案:<input type="text" id="answer"  />
+				<div id="showPwd" align="center" style="display: inline;background-color: fuchsia;width: 150px;height: 20px;position: absolute;"></div>
+				<br/>
+				<input type="button" value="确定" id="sure"/>
+		</header>
+	</div>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/underscore.js"></script>
+	<script type="text/javascript" src="js/backbone.js"></script>
+	<script type="text/javascript" src="js/todo.js"></script>
+
+	<!-- Templates -->
+		
+</body>
+</html>

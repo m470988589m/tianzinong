@@ -20,7 +20,7 @@
 		<result property="done" column="done" javaType="java.lang.Boolean" jdbcType="varchar" />
 		<result property="order" column="orderNum" javaType="java.lang.Integer" jdbcType="Integer" />
 	</resultMap>
-
+	
 	<select id="todo.query" resultMap="TodoEntity">
 	<![CDATA[
 		select id, content, done, orderNum from todo order by orderNum
